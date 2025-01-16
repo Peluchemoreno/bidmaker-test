@@ -179,6 +179,10 @@ function stopDrawing() {
 
 // Undo the last action
 undoBtn.addEventListener("click", () => {
+  undo();
+});
+
+function undo() {
   if (index <= 0) {
     clearCanvas();
   } else {
@@ -191,7 +195,7 @@ undoBtn.addEventListener("click", () => {
     );
     updateUndoButton();
   }
-});
+}
 
 // Clear the canvas
 function clearCanvas() {
@@ -233,6 +237,12 @@ canvas.addEventListener("touchcancel", stopDrawing);
 
 // Initialize on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", startup);
+document.addEventListener("keydown", (e) => {
+  e.preventDefault();
+  if (e.key === "Escape") {
+    undo();
+  }
+});
 
 function finish() {
   window.onbeforeprint = (event) => {
