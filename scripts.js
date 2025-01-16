@@ -233,3 +233,17 @@ canvas.addEventListener("touchcancel", stopDrawing);
 
 // Initialize on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", startup);
+
+function finish() {
+  window.onbeforeprint = (event) => {
+    toolsBar = document.querySelector(".tools-bar");
+    toolsBar.style.display = "none";
+    legendPic = document.querySelector(".legend-pic");
+  };
+  window.print();
+}
+
+window.onafterprint = (event) => {
+  toolsBar = document.querySelector(".tools-bar");
+  toolsBar.style.display = "flex";
+};
