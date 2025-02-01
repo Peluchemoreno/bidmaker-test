@@ -316,7 +316,6 @@ function redrawCanvas() {
   drawGrid();
   updateColor();
   lines.forEach((line) => {
-    console.log(line.color);
     ctx.strokeStyle = line.color;
     ctx.fillStyle = line.color;
     if (line.tool === "downspout") {
@@ -405,7 +404,6 @@ function undo() {
     clearCanvas(); // If no history, clear the canvas
   }
   updateUndoButton();
-  console.log(lines, history);
 }
 
 function saveState() {
@@ -427,10 +425,15 @@ clearButton.addEventListener("click", clearCanvas);
 // Update the undo button
 function updateUndoButton() {
   if (lines && history) {
-    undoBtn.innerText =
-      lines.length > 0 && history.length > 0 ? "Undo" : "Update Grid";
-    undoBtn.style.backgroundColor =
-      lines.length > 0 && history.length > 0 ? "silver" : "#d9f170";
+    // undoBtn.innerText =
+    //   lines.length > 0 && history.length > 0 ? "Undo" : "Set Grid";
+    // undoBtn.style.backgroundColor =
+    //   lines.length > 0 && history.length > 0 ? "silver" : "#d9f170";
+    if (lines.length > 0 && history.length > 0) {
+      undoBtn.style.display = "none";
+    } else if (lines.length === 0) {
+      undoBtn.style.display = "inline-block";
+    }
   } else {
     return;
   }
@@ -439,7 +442,6 @@ function updateUndoButton() {
 function toggleEraser(status) {
   eraserBtn.classList.toggle("eraser-btn_on");
   isEraserOn = !status;
-  console.log(isEraserOn);
 }
 
 // Add event listeners
@@ -447,6 +449,7 @@ canvas.addEventListener("pointerdown", startDrawing);
 canvas.addEventListener("pointermove", drawRubberLine);
 canvas.addEventListener("pointerup", () => {
   stopDrawing();
+  updateUndoButton();
 });
 canvas.addEventListener("pointerout", stopDrawing);
 
@@ -457,7 +460,6 @@ cancelBtn.addEventListener("click", () => {
 
 confirmBtn.addEventListener("click", () => {
   placeText(startX, startY);
-  console.log(lines, history);
 });
 
 // Add touch events for mobile and tablets
@@ -486,3 +488,17 @@ document.addEventListener("keydown", (e) => {
     undo();
   }
 });
+
+function finish() {
+  window.onbeforeprint = (event) => {
+    toolsBar = document.querySelector(".tools-bar");
+    toolsBar.style.display = "none";
+    legendPic = document.querySelector(".legend-pic");
+  };
+  window.print();
+}
+
+window.onafterprint = (event) => {
+  toolsBar = document.querySelector(".tools-bar");
+  toolsBar.style.display = "flex";
+};

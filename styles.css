@@ -431,11 +431,13 @@ input {
 }
 
 .undo-button {
-  display: none;
+  /* display: none; */
+  background-color: #d9f170;
 }
 
 .toolbar__number-input{
-  display: none;
+  /* display: none; */
+  background-color: silver;
 }
 
 .eraser-btn {
