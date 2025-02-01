@@ -10,9 +10,7 @@ body {
   position: relative;
 }
 
-button {
-  cursor: pointer;
-}
+
 
 
 
@@ -447,4 +445,8 @@ input {
 
 .eraser-btn_on {
   background-color: pink;
+}
+
+button {
+  cursor: pointer;
 }

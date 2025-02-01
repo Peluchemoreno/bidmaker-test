@@ -510,7 +510,6 @@ canvas.addEventListener("pointermove", drawRubberLine);
 canvas.addEventListener("pointerup", () => {
   stopDrawing();
   updateUndoButton();
-  console.log(lines);
 });
 canvas.addEventListener("pointerout", stopDrawing);
 
