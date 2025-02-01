@@ -205,6 +205,12 @@ function stopDrawing(event) {
       // ctx.moveTo(startX, startY);
       ctx.lineTo(currentX, currentY);
       ctx.lineWidth = 2;
+      if (!currentX || !currentY) {
+        return;
+      }
+      if (startX === currentX && startY === currentY) {
+        return;
+      }
       ctx.stroke();
       // Add line coordinates instead of ImageData
       lines.push({
@@ -216,6 +222,8 @@ function stopDrawing(event) {
         color: colorPicker.value,
       });
       updateUndoButton();
+      currentX = null;
+      currentY = null;
     }
     if (tool.value !== "free-text") {
       saveState();
@@ -502,6 +510,7 @@ canvas.addEventListener("pointermove", drawRubberLine);
 canvas.addEventListener("pointerup", () => {
   stopDrawing();
   updateUndoButton();
+  console.log(lines);
 });
 canvas.addEventListener("pointerout", stopDrawing);
 
@@ -526,6 +535,7 @@ canvas.addEventListener("touchmove", (event) => {
 canvas.addEventListener("touchend", (event) => {
   event.preventDefault();
   stopDrawing();
+  updateUndoButton();
 });
 canvas.addEventListener("touchcancel", stopDrawing);
 
