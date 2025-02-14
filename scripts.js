@@ -11,6 +11,13 @@ const confirmBtn = document.querySelector(".button_confirm");
 const modal = document.querySelector(".modal");
 const eraserBtn = document.querySelector(".eraser-btn");
 
+const pricesCloseBtn = document.querySelector(".modal-prices__close-button");
+const pricesModal = document.querySelector(".modal-prices");
+const pricesCancelBtn = document.querySelector(".button_alt-cancel");
+const pricesConfirmBtn = document.querySelector(".button_alt_confirm");
+const logo = document.querySelector(".header-logo");
+const priceForm = document.querySelector("#prices-form");
+
 let isDrawing = false;
 let startX, startY, currentX, currentY;
 let lines = []; // Store start and end coordinates for lines
@@ -504,6 +511,19 @@ function toggleEraser(status) {
   isEraserOn = !status;
 }
 
+function savePriceInfo() {
+  priceForm.elements.forEach((element) => {
+    localStorage.setItem(element.id, element.value);
+  });
+}
+
+function sanitizeInput(input) {
+  if (input === "" || input === undefined) {
+    return Math.round(0).toFixed(2);
+  }
+  return parseFloat(input).toFixed(2);
+}
+
 // Add event listeners
 canvas.addEventListener("pointerdown", startDrawing);
 canvas.addEventListener("pointermove", drawRubberLine);
@@ -520,6 +540,26 @@ cancelBtn.addEventListener("click", () => {
 
 confirmBtn.addEventListener("click", () => {
   placeText(startX, startY);
+});
+
+pricesCloseBtn.addEventListener("click", () => {
+  pricesModal.classList.remove("modal_visible");
+});
+
+pricesCancelBtn.addEventListener("click", () => {
+  pricesModal.classList.remove("modal_visible");
+});
+
+logo.addEventListener("click", () => {
+  priceForm.elements.forEach((element) => {
+    element.value = localStorage.getItem(element.id);
+  });
+  pricesModal.classList.add("modal_visible");
+});
+
+pricesConfirmBtn.addEventListener("click", () => {
+  savePriceInfo();
+  pricesModal.classList.remove("modal_visible");
 });
 
 // Add touch events for mobile and tablets

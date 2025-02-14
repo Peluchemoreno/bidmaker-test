@@ -302,7 +302,7 @@ form {
   width: 100%;
 }
 
-label {
+.label {
   background-color: rgb(65, 65, 65);
   color: rgb(255, 255, 255);
 
@@ -321,13 +321,13 @@ label {
   padding: 3px;
 }
 
-.material-details-body label,
-.extra-and-pricing-body label {
+.material-details-body .label,
+.extra-and-pricing-body .label {
   font-size: 10px;
   font-weight: bolder;
 }
 
-label,
+.label,
 input {
   border: none;
   border-bottom: 1px solid black;
@@ -449,4 +449,81 @@ input {
 
 button {
   cursor: pointer;
+}
+
+.modal-prices__container {
+ width: 80%;
+ padding: 15px;
+ background-color: rgb(185, 199, 211);
+ border: 2px solid black;
+ overflow-y: scroll;
+ height: 75svh;
+ position: relative;
+}
+
+.modal-prices__title {
+  font-size: 36px;
+  margin-top: -20px;
+  padding-left: 10px;
+}
+
+.modal-prices__body-items {
+  display: flex;
+  list-style-type: none;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.modal-prices__body-item{
+  display: flex;
+  justify-content: space-between;
+  width: 49%;
+  align-items: flex-end;
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
+}
+
+.item__price-container {
+ text-align: right;
+}
+
+.item__price-input {
+  width: 50%;
+  border: none;
+  text-align: right;
+}
+
+.item__title {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 16px;
+}
+
+.modal-prices__body-title {
+  font-size: 24px;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.modal-prices__footer {
+  text-align: right;
+  margin-top: 30px;
+}
+
+.button_alt {
+  padding: 15px 45px;
+  cursor: pointer;
+}
+
+.modal-prices__close-button {
+  width: 30px;
+  position: sticky;
+  top: 0;
+  left: 100%;
+  cursor: pointer;
+  z-index: 4;
+  margin: 0;
 }
