@@ -551,6 +551,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 function finish() {
+  console.log(lines);
   window.onbeforeprint = (event) => {
     toolsBar = document.querySelector(".tools-bar");
     toolsBar.style.display = "none";
