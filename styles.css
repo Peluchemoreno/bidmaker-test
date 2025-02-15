@@ -14,7 +14,7 @@ body {
 
 
 
-.modal {
+.modal, .modal-prices {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.6);
   top: 0;
@@ -275,10 +275,12 @@ select {
 
 .job-notes {
   background-color: black;
-
   display: block;
+  color: white;
   letter-spacing: 3px;
   margin-top: 5px;
+  padding: 5px;
+  font-weight: bold;
 }
 
 #job-notes {
@@ -416,7 +418,7 @@ input {
 
 #additions-label,
 #additions2-label,
-#screen-label {
+#screen-label, #additions3-label {
   display: flex;
   align-items: center;
 }
@@ -526,4 +528,19 @@ button {
   cursor: pointer;
   z-index: 4;
   margin: 0;
+}
+
+.material-details-header {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.material-details-body__section {
+  /* border: 1px solid red; */
+  display: flex;
+}
+
+.coil-size-select, .ds-size-select {
+  font-size: 12px;
 }
