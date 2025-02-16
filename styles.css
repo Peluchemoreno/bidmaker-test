@@ -544,3 +544,13 @@ button {
 .coil-size-select, .ds-size-select {
   font-size: 12px;
 }
+
+.screen-input-container {
+  display: flex;
+}
+
+.screen-choice {
+  border: none;
+  font-size: 10px;
+  width: 50%;
+}

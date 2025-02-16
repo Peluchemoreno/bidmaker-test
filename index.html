@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div class="modal modal-prices">
+    <div class="modal modal-prices modal-prices_visible">
       <div class="modal-prices__container">
         <img
           src="./img/close.svg"
@@ -403,7 +403,7 @@
           </section>
           <section class="modal-prices__body-misc">
             <p class="modal-prices__body-title">Misc</p>
-            <ul class="modal-prices__body-items">
+            <ul class="modal-prices__body-items modal-prices__body-items_misc">
               <li class="modal-prices__body-item">
                 <label for="price-ism" class="item__title"
                   >Inside Miter
@@ -488,20 +488,7 @@
                   </div>
                 </label>
               </li>
-              <li class="modal-prices__body-item">
-                <label for="price-screen" class="item__title"
-                  >Screen
-                  <div class="item__price-container">
-                    $
-                    <input
-                      class="item__price-input"
-                      placeholder="0.00"
-                      type="text"
-                      id="price-screen"
-                    />
-                  </div>
-                </label>
-              </li>
+
               <li class="modal-prices__body-item">
                 <label for="price-copper" class="item__title"
                   >Copper Markup
@@ -528,7 +515,22 @@
                   </div>
                 </label>
               </li>
+              <li class="modal-prices__body-item">
+                <label for="price-screen" class="item__title"
+                  >Screen
+                  <div class="item__price-container">
+                    $
+                    <input
+                      class="item__price-input"
+                      placeholder="0.00"
+                      type="text"
+                      id="price-screen"
+                    />
+                  </div>
+                </label>
+              </li>
             </ul>
+            <button class="button add-screen-button">Add Screen</button>
           </section>
         </form>
         <div class="modal-prices__footer">
@@ -800,6 +802,8 @@
                   name="splash-blocks"
                   id="splash-blocks"
                 />
+                <label class="label" for="other">Gutter and Ds:</label>
+                <input type="text" name="other" id="other" placeholder="$" />
               </div>
             </div>
             <div class="pricing-container">
@@ -820,10 +824,14 @@
                   >Screen:</label
                 >
 
-                <textarea name="screen" id="screen" rows="6"></textarea>
-
-                <label class="label" for="other">Gutter and Ds:</label>
-                <input type="text" name="other" id="other" placeholder="$" />
+                <div class="screen-input-container">
+                  <textarea name="screen" id="screen" rows="6"></textarea>
+                  <select
+                    name="screen-choice"
+                    id="screen-choice"
+                    class="screen-choice"
+                  ></select>
+                </div>
 
                 <label class="label" for="additions3" id="additions3-label"
                   >Additions:</label

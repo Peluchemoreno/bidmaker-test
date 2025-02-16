@@ -32,6 +32,11 @@ const dsColorInput = document.getElementById("downspout-color");
 const materialsHeaderText = document.querySelector(
   ".material-side-header-text"
 );
+const pricesMiscListContainer = document.querySelector(
+  ".modal-prices__body-items_misc"
+);
+const screenSelectInput = document.querySelector(".screen-choice");
+const addScreenButton = document.querySelector(".add-screen-button");
 
 const keyGutter = {
   "price-5inKstyle": '5" K-Style',
@@ -66,6 +71,7 @@ const formElementsNeeded = [
   "splash-blocks",
   "drip-edge",
   "screen",
+  "screen-choice",
   "other",
   "additions",
   "additions2",
@@ -605,6 +611,54 @@ function sanitizeInput(input) {
   return parseFloat(input).toFixed(2);
 }
 
+function createScreenElement(name) {
+  const liContainer = document.createElement("li");
+  liContainer.classList.add("modal-prices__body-item");
+
+  const label = document.createElement("label");
+  label.classList.add("item__title");
+  label.attributes.for = "testing";
+  label.textContent = name;
+
+  const divContainer = document.createElement("div");
+  divContainer.classList.add("item__price-container");
+  divContainer.innerText = "$";
+
+  const inputElement = document.createElement("input");
+  inputElement.classList.add("item__price-input");
+  inputElement.placeholder = "$0.00";
+  inputElement.type = "text";
+  inputElement.id = `price-screen-${name}`;
+
+  divContainer.appendChild(inputElement);
+  label.appendChild(divContainer);
+  liContainer.appendChild(label);
+
+  return liContainer;
+}
+
+function addElementToPricesPage(element) {
+  console.log(element);
+  pricesMiscListContainer.appendChild(element);
+}
+
+function createScreenOptionElement(name) {
+  const element = document.createElement("option");
+  element.value = name;
+  element.textContent = name;
+  return element;
+}
+
+function addElementToScreenOptionsList(element) {
+  console.log(element);
+  screenSelectInput.appendChild(element);
+}
+
+function addScreenItem(name) {
+  addElementToPricesPage(createScreenElement(name));
+  addElementToScreenOptionsList(createScreenOptionElement(name));
+}
+
 // Add event listeners
 canvas.addEventListener("pointerdown", startDrawing);
 canvas.addEventListener("pointermove", drawRubberLine);
@@ -667,6 +721,12 @@ materialSelect.addEventListener("change", () => {
   calculate();
 });
 
+addScreenButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  const screenName = window.prompt("What is the name of the screen?");
+  addScreenItem(screenName);
+});
+
 // Add touch events for mobile and tablets
 canvas.addEventListener("touchstart", (event) => {
   event.preventDefault();
@@ -721,6 +781,7 @@ function calculate() {
 
   filteredElements.forEach((element, index) => {
     const value = document.getElementById(`${element.name}`);
+    const screenValue = document.getElementById("screen");
 
     if (value.value) {
       switch (value.id) {
@@ -795,6 +856,11 @@ function calculate() {
         case "drip-edge":
           total +=
             localStorage.getItem("price-flashing") * parseInt(value.value);
+          break;
+        case "screen-choice":
+          total +=
+            localStorage.getItem(`price-screen-${value.value}`) *
+            screenValue.value;
           break;
       }
     }
