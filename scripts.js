@@ -37,6 +37,7 @@ const pricesMiscListContainer = document.querySelector(
 );
 const screenSelectInput = document.querySelector(".screen-choice");
 const addScreenButton = document.querySelector(".add-screen-button");
+const priceItems = document.querySelectorAll(".modal-prices__body-item");
 
 const keyGutter = {
   "price-5inKstyle": '5" K-Style',
@@ -103,6 +104,7 @@ function startup() {
   drawGrid();
   updateUndoButton();
   parseMaterialOptions();
+  renderScreenItems();
 }
 
 function parseMaterialOptions() {
@@ -611,7 +613,7 @@ function sanitizeInput(input) {
   return parseFloat(input).toFixed(2);
 }
 
-function createScreenElement(name) {
+function createScreenElement(name, price) {
   const liContainer = document.createElement("li");
   liContainer.classList.add("modal-prices__body-item");
 
@@ -634,11 +636,26 @@ function createScreenElement(name) {
   label.appendChild(divContainer);
   liContainer.appendChild(label);
 
+  if (price) {
+    inputElement.value = price;
+  }
+
+  liContainer.ondblclick = function (e) {
+    // console.log(e.target.querySelector(".item__price-input"));
+    const id = e.target.querySelector(".item__price-input").id;
+    const answer = window.confirm("Are you sure you want to delete this item?");
+    if (answer) {
+      // localStorage.removeItem(id);
+      pricesMiscListContainer.removeChild(liContainer);
+      // screenSelectInput.removeChild()
+      console.log(screenSelectInput);
+    }
+  };
+
   return liContainer;
 }
 
 function addElementToPricesPage(element) {
-  console.log(element);
   pricesMiscListContainer.appendChild(element);
 }
 
@@ -650,13 +667,31 @@ function createScreenOptionElement(name) {
 }
 
 function addElementToScreenOptionsList(element) {
-  console.log(element);
   screenSelectInput.appendChild(element);
 }
 
-function addScreenItem(name) {
-  addElementToPricesPage(createScreenElement(name));
+function addScreenItem(name, price) {
+  addElementToPricesPage(createScreenElement(name, price));
   addElementToScreenOptionsList(createScreenOptionElement(name));
+}
+
+function populateScreenList(name) {
+  addElementToScreenOptionsList(createScreenOptionElement(name));
+}
+
+function renderScreenItems() {
+  console.log("render");
+  const objKeys = Object.keys(localStorage);
+  objKeys.forEach((key) => {
+    if (key.includes("price-screen-")) {
+      const keyName = key.split("price-screen-").pop();
+
+      addElementToPricesPage(
+        createScreenElement(keyName, localStorage.getItem(key))
+      );
+      populateScreenList(keyName);
+    }
+  });
 }
 
 // Add event listeners
