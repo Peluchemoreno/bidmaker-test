@@ -642,14 +642,26 @@ function createScreenElement(name, price) {
 
   liContainer.ondblclick = function (e) {
     // console.log(e.target.querySelector(".item__price-input"));
-    const id = e.target.querySelector(".item__price-input").id;
+    const id = e.target
+      .querySelector(".item__price-input")
+      .id.split("price-screen-")
+      .pop();
     const answer = window.confirm("Are you sure you want to delete this item?");
+    const arrayOfOptions = Array.from(
+      screenSelectInput.querySelectorAll("option")
+    );
     if (answer) {
-      // localStorage.removeItem(id);
+      console.log(id);
       pricesMiscListContainer.removeChild(liContainer);
-      // screenSelectInput.removeChild()
-      console.log(screenSelectInput);
+
+      arrayOfOptions.filter((option) => {
+        if (option.value === id) {
+          screenSelectInput.removeChild(option);
+          localStorage.removeItem(`price-screen-${id}`);
+        }
+      });
     }
+    calculate();
   };
 
   return liContainer;
