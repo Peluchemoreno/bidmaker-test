@@ -26,7 +26,6 @@ const dsSizeSelect = document.querySelector(".ds-size-select");
 const materialSelect = document.getElementById("material-select");
 const gutterSelect = document.getElementById("coil-size");
 const totalInput = document.getElementById("total");
-const gutterDsPriceInput = document.getElementById("other");
 const coilColorInput = document.getElementById("coil-color");
 const dsColorInput = document.getElementById("downspout-color");
 const materialsHeaderText = document.querySelector(
@@ -38,6 +37,13 @@ const pricesMiscListContainer = document.querySelector(
 const screenSelectInput = document.querySelector(".screen-choice");
 const addScreenButton = document.querySelector(".add-screen-button");
 const priceItems = document.querySelectorAll(".modal-prices__body-item");
+const screenFootageInput = document.getElementById("screen");
+const gutterDsPriceInputAlt = document.querySelector(".gutter-and-ds-input2");
+const gutterDsPriceInput = document.getElementById("other");
+const gutterDsPriceLabel = document.querySelector(".gutter-and-ds-label");
+const gutterDsPriceLabelAlt = document.querySelector(".gutter-and-ds-label2");
+
+let gutterAndDsElementIsOnBottomSection = false;
 
 const keyGutter = {
   "price-5inKstyle": '5" K-Style',
@@ -105,6 +111,17 @@ function startup() {
   updateUndoButton();
   parseMaterialOptions();
   renderScreenItems();
+  if (gutterAndDsElementIsOnBottomSection) {
+    gutterDsPriceInput.style.display = "none";
+    gutterDsPriceLabel.style.display = "none";
+    gutterDsPriceInputAlt.style.display = "block";
+    gutterDsPriceLabelAlt.style.display = "block";
+  } else {
+    gutterDsPriceInput.style.display = "block";
+    gutterDsPriceLabel.style.display = "block";
+    gutterDsPriceInputAlt.style.display = "none";
+    gutterDsPriceLabelAlt.style.display = "none";
+  }
 }
 
 function parseMaterialOptions() {
@@ -641,7 +658,6 @@ function createScreenElement(name, price) {
   }
 
   liContainer.ondblclick = function (e) {
-    // console.log(e.target.querySelector(".item__price-input"));
     const id = e.target
       .querySelector(".item__price-input")
       .id.split("price-screen-")
@@ -651,7 +667,6 @@ function createScreenElement(name, price) {
       screenSelectInput.querySelectorAll("option")
     );
     if (answer) {
-      console.log(id);
       pricesMiscListContainer.removeChild(liContainer);
 
       arrayOfOptions.filter((option) => {
@@ -692,7 +707,6 @@ function populateScreenList(name) {
 }
 
 function renderScreenItems() {
-  console.log("render");
   const objKeys = Object.keys(localStorage);
   objKeys.forEach((key) => {
     if (key.includes("price-screen-")) {
@@ -928,6 +942,41 @@ function calculate() {
 }
 
 function renderTotal(price) {
+  const furtherFilteredElements = filteredElements.filter((element) => {
+    if (
+      element.id === "additions2" ||
+      element.id === "additions" ||
+      element.id === "additions3" ||
+      element.id === "screen" ||
+      element.id === "drip-edge"
+    ) {
+      return element;
+    }
+  });
+
+  if (
+    furtherFilteredElements.every((element) => {
+      return !element.value;
+    })
+  ) {
+    gutterAndDsElementIsOnBottomSection = false;
+  } else {
+    gutterAndDsElementIsOnBottomSection = true;
+  }
+
+  if (gutterAndDsElementIsOnBottomSection) {
+    gutterDsPriceInput.style.display = "none";
+    gutterDsPriceLabel.style.display = "none";
+    gutterDsPriceInputAlt.style.display = "block";
+    gutterDsPriceLabelAlt.style.display = "block";
+  } else {
+    gutterDsPriceInput.style.display = "block";
+    gutterDsPriceLabel.style.display = "block";
+    gutterDsPriceInputAlt.style.display = "none";
+    gutterDsPriceLabelAlt.style.display = "none";
+  }
+
+  gutterDsPriceInputAlt.value = "$" + price.toFixed(2);
   gutterDsPriceInput.value = "$" + price.toFixed(2);
   totalInput.value = "$" + price.toFixed(2);
   // also add the values from the 3 additions boxes to this total
@@ -940,14 +989,15 @@ function finish() {
     toolsBar.style.display = "none";
     legendPic = document.querySelector(".legend-pic");
 
-    console.log(coilColorInput.value, keyGutter[gutterSelect.value]);
-    console.log(dsColorInput.value, keyDS[dsSizeSelect.value]);
     gutterSelect.style.display = "none";
     dsSizeSelect.style.display = "none";
     materialSelect.style.display = "none";
+    screenSelectInput.style.display = "none";
+
     coilColorInput.value += " " + keyGutter[gutterSelect.value];
     dsColorInput.value += " " + keyDS[dsSizeSelect.value];
     materialsHeaderText.textContent = `MATERIAL / ${materialSelect.value.toUpperCase()}`;
+    screenFootageInput.value += " " + screenSelectInput.value;
   };
   window.print();
 }
@@ -958,7 +1008,9 @@ window.onafterprint = (event) => {
   gutterSelect.style.display = "block";
   dsSizeSelect.style.display = "block";
   materialSelect.style.display = "block";
+  screenSelectInput.style.display = "block";
   materialsHeaderText.textContent = "MATERIAL";
   coilColorInput.value = "";
   dsColorInput.value = "";
+  screenFootageInput.value = "";
 };
