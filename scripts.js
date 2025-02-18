@@ -666,6 +666,7 @@ function createScreenElement(name, price) {
     const arrayOfOptions = Array.from(
       screenSelectInput.querySelectorAll("option")
     );
+
     if (answer) {
       pricesMiscListContainer.removeChild(liContainer);
 
@@ -785,6 +786,9 @@ materialSelect.addEventListener("change", () => {
 addScreenButton.addEventListener("click", (e) => {
   e.preventDefault();
   const screenName = window.prompt("What is the name of the screen?");
+  if (!screenName) {
+    return;
+  }
   addScreenItem(screenName);
 });
 

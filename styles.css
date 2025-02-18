@@ -480,6 +480,7 @@ button {
  overflow-y: scroll;
  height: 75svh;
  position: relative;
+ z-index: 2;
 }
 
 .modal-prices__title {
