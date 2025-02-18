@@ -256,6 +256,7 @@ select {
 .canvas-side {
   border-left: 2px solid black;
   border-bottom: 2px solid black;
+  position: relative;
 }
 
 .material-side {
@@ -430,6 +431,24 @@ input {
   background-color: silver;
 }
 
+.canvas__watermark{
+  height: 500px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas__watermark-image{
+  width: 400px;
+  opacity: .2;
+}
+
 .undo-button {
   /* display: none; */
   background-color: #d9f170;
@@ -553,4 +572,22 @@ button {
   border: none;
   font-size: 10px;
   width: 50%;
+}
+
+.canvas__watermark{
+  height: 500px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas__watermark-image{
+  width: 400px;
+  opacity: .2;
 }
