@@ -49,6 +49,8 @@ body {
   background-color: #414141;
   color: white;
   max-width: 50%;
+  position: relative;
+  z-index: 5;
 }
 
 .container__input {
