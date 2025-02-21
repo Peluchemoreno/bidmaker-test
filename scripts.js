@@ -105,7 +105,7 @@ let isEraserOn = false;
 
 // Initialize Canvas
 function startup() {
-  canvas.width = 800;
+  canvas.width = 820;
   canvas.height = 400;
   drawGrid();
   updateUndoButton();
