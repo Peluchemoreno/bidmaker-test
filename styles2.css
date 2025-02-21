@@ -199,3 +199,33 @@ body {
 button {
   cursor: pointer;
 }
+
+.button {
+  padding: 5px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.item__price-container {
+  text-align: right;
+ }
+ 
+ .item__price-input {
+   width: 50%;
+   border: none;
+   text-align: right;
+ }
+ 
+ .item__title {
+   display: flex;
+   align-items: flex-end;
+   justify-content: space-between;
+   width: 100%;
+   font-size: 16px;
+ }
+ 
+ .modal-prices__body-title {
+  font-size: 24px;
+  margin: 20px 0;
+  font-weight: bold;
+}
