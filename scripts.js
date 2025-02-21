@@ -105,8 +105,8 @@ let isEraserOn = false;
 
 // Initialize Canvas
 function startup() {
-  canvas.width = 500;
-  canvas.height = 500;
+  canvas.width = 800;
+  canvas.height = 400;
   drawGrid();
   updateUndoButton();
   parseMaterialOptions();
