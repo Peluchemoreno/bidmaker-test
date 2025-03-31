@@ -42,6 +42,9 @@ const gutterDsPriceInputAlt = document.querySelector(".gutter-and-ds-input2");
 const gutterDsPriceInput = document.getElementById("other");
 const gutterDsPriceLabel = document.querySelector(".gutter-and-ds-label");
 const gutterDsPriceLabelAlt = document.querySelector(".gutter-and-ds-label2");
+const additions3Input = document.getElementById("additions3");
+const additions2Input = document.getElementById("additions2");
+const additionsInput = document.getElementById("additions");
 
 let gutterAndDsElementIsOnBottomSection = false;
 
@@ -940,6 +943,25 @@ function calculate() {
     let galvalumePercent = parseInt(localStorage.getItem("price-galvalume"));
     total = total + total / galvalumePercent;
   }
+
+  let additions3value = additions3Input.value;
+  let additions2value = additions2Input.value;
+  let additionsValue = additionsInput.value;
+
+  if (additions3value === "") {
+    additions3value = 0;
+  }
+
+  if (additions2value === "") {
+    additions2value = 0;
+  }
+
+  if (additionsValue === "") {
+    additionsValue = 0;
+  }
+  total += parseFloat(additions3value);
+  total += parseFloat(additions2value);
+  total += parseFloat(additionsValue);
 
   renderTotal(total);
   return parseInt(total);
